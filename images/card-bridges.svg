@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="br-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A52FF"/>
+      <stop offset="55%" stop-color="#0033B8"/>
+      <stop offset="100%" stop-color="#000B33"/>
+    </linearGradient>
+    <radialGradient id="br-flare" cx="50%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#0047FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#br-bg)"/>
+  <rect width="800" height="1000" fill="url(#br-flare)"/>
+
+  <text x="60" y="80" font-family="Inter,sans-serif" font-size="12" font-weight="600" letter-spacing="3" fill="#FFFFFF" fill-opacity="0.7">04 — BRIDGES</text>
+  <text x="740" y="80" text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="600" letter-spacing="3" fill="#FFFFFF" fill-opacity="0.7">8 KEYS, 1 LOCK</text>
+
+  <!-- Connection lines from satellites to hub at (400, 660) -->
+  <g stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="1.2" fill="none">
+    <path id="b1" d="M160 460 L 400 660"/>
+    <path id="b2" d="M400 430 L 400 660"/>
+    <path id="b3" d="M640 460 L 400 660"/>
+    <path id="b4" d="M720 660 L 400 660"/>
+    <path id="b5" d="M640 860 L 400 660"/>
+    <path id="b6" d="M400 890 L 400 660"/>
+    <path id="b7" d="M160 860 L 400 660"/>
+    <path id="b8" d="M80  660 L 400 660"/>
+  </g>
+
+  <!-- Light pulses traveling INWARD to hub -->
+  <g fill="#FFFFFF">
+    <circle r="4"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#b1"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="0.3s" repeatCount="indefinite"><mpath href="#b2"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="0.6s" repeatCount="indefinite"><mpath href="#b3"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="0.9s" repeatCount="indefinite"><mpath href="#b4"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="1.2s" repeatCount="indefinite"><mpath href="#b5"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="1.5s" repeatCount="indefinite"><mpath href="#b6"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite"><mpath href="#b7"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.6s" begin="2.1s" repeatCount="indefinite"><mpath href="#b8"/></animateMotion></circle>
+  </g>
+
+  <!-- Hub: AllOnce mark -->
+  <g transform="translate(400,660)">
+    <circle r="62" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1.5">
+      <animate attributeName="r" values="62;72;62" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="44" fill="#FFFFFF"/>
+    <text y="6" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0033B8" letter-spacing="-0.4">AllOnce</text>
+  </g>
+
+  <!-- Satellite tools -->
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="600" letter-spacing="-0.2">
+    <g transform="translate(160,460)"><rect x="-50" y="-22" width="100" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">Stripe</text></g>
+    <g transform="translate(400,430)"><rect x="-50" y="-22" width="100" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">Gmail</text></g>
+    <g transform="translate(640,460)"><rect x="-50" y="-22" width="100" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">Slack</text></g>
+    <g transform="translate(720,660)"><rect x="-60" y="-22" width="120" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">QuickBooks</text></g>
+    <g transform="translate(640,860)"><rect x="-50" y="-22" width="100" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">Notion</text></g>
+    <g transform="translate(400,890)"><rect x="-50" y="-22" width="100" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">Webflow</text></g>
+    <g transform="translate(160,860)"><rect x="-50" y="-22" width="100" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">Linear</text></g>
+    <g transform="translate(80,660)"><rect x="-46" y="-22" width="92" height="44" rx="3" fill="#FFFFFF"/><text text-anchor="middle" y="5" fill="#0E0E0E">HubSpot</text></g>
+  </g>
+
+  <!-- Caption -->
+  <text x="60" y="920" font-family="Inter,sans-serif" font-size="20" font-weight="500" fill="#FFFFFF" fill-opacity="0.9" letter-spacing="-0.5">Bridges to every tool you already pay for.</text>
+</svg>

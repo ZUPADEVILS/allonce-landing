@@ -1,0 +1,96 @@
+/* Workflow — fixed/pinned, white bg, black elements only, Apple Messages feel */
+
+.workflow {
+  position: relative;
+  width: 100%;
+  height: 1200vh;         /* scroll budget — 6 scenes × 2 viewports each, deliberate but not stuck */
+  background: #ffffff;
+  margin-top: clamp(40px, 6vw, 100px);
+  color: #000;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Stage is JS-driven: switches between absolute (before/after) and fixed (during) */
+.workflow-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 6vh, 80px);
+  background: #ffffff;
+  will-change: transform;
+}
+.workflow-stage.is-fixed {
+  position: fixed;
+  top: 0;
+}
+.workflow-stage.is-end {
+  top: auto;
+  bottom: 0;
+}
+
+.workflow-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 1280px;
+}
+
+/* HUD — minimal, Apple-quiet */
+.wf-hud-top {
+  position: absolute;
+  top: clamp(20px, 3vh, 32px);
+  left: clamp(20px, 3vw, 36px);
+  right: clamp(20px, 3vw, 36px);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #000;
+  z-index: 2;
+}
+.wf-hud-top .left { display: inline-flex; gap: 10px; align-items: baseline; }
+.wf-hud-top .step { color: #000; }
+.wf-hud-top .right { color: rgba(0,0,0,0.45); }
+
+/* Progress dot row instead of a bar — more iOS */
+.wf-progress {
+  position: absolute;
+  bottom: clamp(28px, 4vh, 56px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 10px;
+  z-index: 2;
+}
+.wf-progress span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.wf-progress span.active {
+  background: #000;
+  transform: scale(1.4);
+}
+
+.wf-caption {
+  position: absolute;
+  bottom: clamp(60px, 8vh, 100px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(0,0,0,0.65);
+  text-align: center;
+  max-width: 80%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Scenes hard-toggle — no CSS transition so JS-driven opacity = exact display */
+.wf-scene { transition: none; }
+
+/* Subtle dotted floor (very faint, only suggests space) */
+.wf-grid { display: none; }

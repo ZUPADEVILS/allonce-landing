@@ -1,0 +1,49 @@
+/* Electric-blue accent system — applied to all page accents.
+   Loaded after theme-light.css / ig-mix.css so it wins on shared selectors. */
+
+:root {
+  --accent:        #0000FF;
+  --accent-bright: #3B5BFF;
+  --accent-soft:   rgba(0, 0, 255, 0.12);
+  --accent-glow:   rgba(0, 0, 255, 0.45);
+}
+
+/* ─── Header — Sign In = blue text, no chip ─────────── */
+header nav[aria-label="Primary"] a[href="/signin/index.html"],
+[aria-hidden="true"] nav[aria-label="Primary"] a[href="/signin/index.html"] {
+  color: var(--accent) !important;
+  text-decoration-color: var(--accent) !important;
+}
+header nav[aria-label="Primary"] a:not([href="/signin/index.html"]):hover {
+  color: var(--accent) !important;
+}
+
+/* ─── Hero stat numbers (36, 65) ──────────────────────── */
+section.rp-hero-section span.font-medium.text-\[32px\] {
+  color: var(--accent) !important;
+}
+
+/* ─── "Watch Spawn Reel" — arc only ───────────────────── */
+.showreel-ring-arc circle { stroke: var(--accent) !important; }
+
+/* ─── Ingamana kicker dot ─────────────────────────────── */
+.ig-kicker::before { background: var(--accent) !important; box-shadow: 0 0 8px var(--accent-glow) !important; }
+
+/* ─── Workflow scroll-stop accents ────────────────────── */
+.wf-progress span.active { background: var(--accent) !important; }
+.wf-hud-top .step { color: var(--accent) !important; }
+#wf-caret { fill: var(--accent) !important; }
+#wf-hub  { fill: var(--accent) !important; }
+#wf-particles circle { fill: var(--accent) !important; }
+[data-tick] { fill: var(--accent) !important; }
+
+/* ─── Selection ───────────────────────────────────────── */
+::selection { background: var(--accent); color: #fff; }
+::-moz-selection { background: var(--accent); color: #fff; }
+
+/* ─── Focus ring ──────────────────────────────────────── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
