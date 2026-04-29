@@ -40,6 +40,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="/css/workflow.css" />
         <link rel="stylesheet" href="/css/accent.css" />
         <link rel="stylesheet" href="/css/signin.css" />
+        <link rel="stylesheet" href="/css/pages.css" />
         {/* Analytics / tracker stubs so legacy data scripts don't error */}
         <script
           dangerouslySetInnerHTML={{
