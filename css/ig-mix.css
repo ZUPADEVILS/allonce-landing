@@ -40,16 +40,24 @@
   text-align: center;
   position: relative;
 }
+/* Wrapper crops the SVG's empty top/bottom whitespace
+   so the logo can be MUCH wider without inflating the section height. */
 .ig-wordmark {
-  font-family: var(--ig-display);
-  font-weight: 700;
-  font-size: clamp(110px, 22vw, 320px);
-  line-height: 0.82;
-  letter-spacing: -0.045em;
-  color: #000;
-  display: inline-flex;
-  align-items: flex-start;
-  white-space: nowrap;
+  display: block;
+  width: clamp(400px, 96vw, 1900px);
+  margin: 0 auto;
+  aspect-ratio: 720 / 320;     /* keep ~roughly the content's visual ratio */
+  position: relative;
+  overflow: hidden;
+}
+.ig-wordmark-svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: auto;
+  transform: translateY(-50%);
+  display: block;
 }
 .ig-wordmark sup {
   font-size: 0.16em;

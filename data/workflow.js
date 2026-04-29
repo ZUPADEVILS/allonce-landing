@@ -8,9 +8,10 @@
 
   const meta = [
     { name: 'Welcome',    caption: 'AllOnce greets you. Then asks one question.' },
-    { name: 'Brief',      caption: 'A paragraph in. The operator types one.' },
+    { name: 'Brief',      caption: 'You type. AllOnce reads.' },
     { name: 'Spawn',      caption: 'AllOnce reads the brief and spawns a workspace.' },
     { name: 'Bridges',    caption: 'Every tool you already pay for, wired in.' },
+    { name: 'Brandbook',  caption: 'Run a prompt. AllOnce makes the assets.' },
     { name: 'Matrix',     caption: 'Every metric, in one unblinking view.' },
     { name: 'Decisions',  caption: 'Decisions arrive. The workspace handles them.' },
   ];
@@ -30,17 +31,9 @@
     const type  = el.dataset.fx;
     const delay = parseFloat(el.dataset.fxDelay || '0');
     const dur   = 0.18;
-    const exitStart = 0.92;
-    let t;
-    let opacity;
-    if (lp >= exitStart) {
-      // tail exit fade
-      t = 1;
-      opacity = 1 - clamp01((lp - exitStart) / (1 - exitStart));
-    } else {
-      t = clamp01((lp - delay) / dur);
-      opacity = ease(t);
-    }
+    // Entry fade only — scene wrapper handles cross-scene toggle.
+    const t = clamp01((lp - delay) / dur);
+    const opacity = ease(t);
     const eased = ease(t);
     const orig = el.dataset.origTransform;
     let extra = '';
@@ -132,12 +125,13 @@
   const clamp01 = t => Math.max(0, Math.min(1, t));
 
   const SCENE_BOUNDS = [
-    [0.000, 0.166], // Welcome
-    [0.166, 0.333], // Brief
-    [0.333, 0.500], // Spawn
-    [0.500, 0.666], // Bridges
-    [0.666, 0.833], // Matrix
-    [0.833, 1.000], // Decisions
+    [0.000, 0.143], // Welcome
+    [0.143, 0.286], // Brief
+    [0.286, 0.429], // Spawn
+    [0.429, 0.571], // Bridges
+    [0.571, 0.714], // Brandbook
+    [0.714, 0.857], // Matrix
+    [0.857, 1.000], // Decisions
   ];
   function localProgress(p, [s, e]) { return clamp01((p - s) / (e - s)); }
   function fmt(v, d) {
@@ -193,16 +187,26 @@
       applyFx(el, lp);
     });
 
-    // Scene 02 — Brief: typing — completes by lp ~0.55 so the Delivered timestamp can fade in after
+    // Scene 02 — Chat: typing happens INSIDE the input box (translate(200,560)).
+    // Phase: typing 0 → 0.55, then "sent" — input clears, user bubble + delivered fade in.
     if (briefText && active === 1) {
       const lpRaw = localProgress(p, SCENE_BOUNDS[1]);
-      const lp = ease(clamp01(lpRaw / 0.55));
-      const charsToShow = Math.floor(lp * fullBrief.length);
-      briefText.textContent = fullBrief.slice(0, charsToShow);
-      const tw = briefText.getComputedTextLength ? briefText.getComputedTextLength() : (charsToShow * 8.5);
-      if (briefCaret) {
-        briefCaret.setAttribute('x', 24 + tw + 4);
-        briefCaret.style.opacity = (Math.floor(performance.now() / 450) % 2) ? 1 : 0.2;
+      if (lpRaw < 0.58) {
+        const lp = ease(clamp01(lpRaw / 0.55));
+        const charsToShow = Math.floor(lp * fullBrief.length);
+        briefText.textContent = fullBrief.slice(0, charsToShow);
+        const tw = briefText.getComputedTextLength ? briefText.getComputedTextLength() : (charsToShow * 8.5);
+        if (briefCaret) {
+          briefCaret.setAttribute('x', 32 + tw + 4);
+          briefCaret.style.opacity = (Math.floor(performance.now() / 450) % 2) ? 1 : 0.2;
+        }
+      } else {
+        // Message sent — input clears, caret hidden
+        briefText.textContent = '';
+        if (briefCaret) {
+          briefCaret.setAttribute('x', 36);
+          briefCaret.style.opacity = 0;
+        }
       }
     }
 
@@ -250,17 +254,17 @@
       });
     }
 
-    // Scene 05 — Matrix tickers
-    if (tickEls.length && active === 4) {
-      const lp = ease(localProgress(p, SCENE_BOUNDS[4]));
+    // Scene 06 — Matrix tickers (was scene 5; +1 since Brandbook scene was inserted)
+    if (tickEls.length && active === 5) {
+      const lp = ease(localProgress(p, SCENE_BOUNDS[5]));
       tickEls.forEach(t => {
         t.el.textContent = t.prefix + fmt(t.target * lp, t.digits) + t.suffix;
       });
     }
 
-    // Scene 06 — Decisions notifications
-    if (notifs.length && active === 5) {
-      const lp = localProgress(p, SCENE_BOUNDS[5]);
+    // Scene 07 — Decisions notifications (was scene 6)
+    if (notifs.length && active === 6) {
+      const lp = localProgress(p, SCENE_BOUNDS[6]);
       notifs.forEach(n => {
         const stagger = 0.10 + n.i * 0.18;
         const t = clamp01((lp - stagger) / 0.16);

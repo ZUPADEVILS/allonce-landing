@@ -21,11 +21,15 @@
 
   const VB_W = 100, VB_H = 500, MID_Y = 250;
 
-  // Bell envelope keeps the bulge in the middle, flat at the ends
+  // Three-peak envelope mirroring the AllOnce mark — short / tall / medium bars.
+  // Bar centres in viewBox-x: 30 (short), 50 (tall), 70 (medium).
+  function gauss(x, c, s) { return Math.exp(-((x - c) * (x - c)) / (2 * s * s)); }
   function envelope(x) {
-    const t = (x - 50) / 25;
-    if (t <= -1 || t >= 1) return 0;
-    return Math.cos(t * Math.PI / 2) ** 2;
+    return Math.min(1,
+        gauss(x, 30, 5.5) * 0.62   // left  · short bar
+      + gauss(x, 50, 5.5) * 1.00   // mid   · tall bar
+      + gauss(x, 70, 5.5) * 0.45   // right · medium bar
+    );
   }
 
   // Mouse interactivity: track normalised cursor pos relative to SVG bounds.
